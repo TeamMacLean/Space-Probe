@@ -5,14 +5,13 @@ const Scan = require('./models/scan');
 const Home = require('./models/homeFolder');
 const Scratch = require('./models/scratchFolder');
 const Read = require('./models/readsFolder');
+const moment = require('moment');
 
 if (process.argv.length < 3) {
     console.error('Usage: import <file>');
     return process.exit(-1)
 }
 
-
-console.log('loading', process.argv[2]);
 
 fs.readFile(process.argv[2], function read(err, data) {
     if (err) {
@@ -22,43 +21,65 @@ fs.readFile(process.argv[2], function read(err, data) {
 
     const imported = JSON.parse(data);
 
-    if(!imported){
+    if (!imported) {
         console.error('failed to parse');
         return process.exit(-1);
     }
 
-    new Scan({date: imported.scan.date})
-        .save()
-        .then(savedScan => {
-            return Promise.all(
-                [Promise.all(
-                    imported.home.map(h => {
-                        h.scanID = savedScan.id;
-                        return new Home(h).save();
-                    })
-                ),
+    const dateHuman = moment(imported.scan.date).format('MMMM Do YYYY, h:mm:ss a');
 
-                Promise.all(
-                    imported.scratch.map(h => {
-                        h.scanID = savedScan.id;
-                        return new Scratch(h).save();
-                    })
-                ),
+    // Scan.count({dateHuman: dateHuman})
+    Scan.filter({dateHuman: dateHuman})
+    // .execute()
+        .then(count => {
 
-                Promise.all(
-                    imported.reads.map(h => {
-                        h.scanID = savedScan.id;
-                        return new Read(h).save();
+            if (count.length < 1) {
+                new Scan({date: imported.scan.date})
+                    .save()
+                    .then(savedScan => {
+
+                        console.log(savedScan.dateHuman, dateHuman, savedScan.dateHuman === dateHuman);
+                        // console.log(new Date(imported.scan.date, savedScan.date, imported.scan.date === savedScan.date,);
+                        return Promise.all(
+                            [Promise.all(
+                                imported.home.map(h => {
+                                    h.scanID = savedScan.id;
+                                    return new Home(h).save();
+                                })
+                            ),
+
+                                Promise.all(
+                                    imported.scratch.map(h => {
+                                        h.scanID = savedScan.id;
+                                        return new Scratch(h).save();
+                                    })
+                                ),
+
+                                Promise.all(
+                                    imported.reads.map(h => {
+                                        h.scanID = savedScan.id;
+                                        return new Read(h).save();
+                                    })
+                                )]
+                        )
+
                     })
-                )]
-            )
+                    .then(() => {
+                        console.log('DONE!');
+                        process.exit(0);
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        process.exit(-1);
+                    })
+
+            } else {
+                console.error('A scan with this data has already been imported');
+                process.exit(-1);
+            }
 
         })
-        .then(() => {
-            console.log('DONE!');
-            process.exit(0);
-        })
-        .catch(err=>{
+        .catch(err => {
             console.error(err);
             process.exit(-1);
         })
