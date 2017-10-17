@@ -1,7 +1,7 @@
 const app = require('./app');
 const debug = require('debug')('space-monitor:server');
 const http = require('http');
-const config = require('config');
+const config = require('./config');
 
 /**
  * Get port from environment and store in Express.
