@@ -1,0 +1,17 @@
+<h2 class="center mt-5 mb-2">Homes</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Size</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% homeFolders.sort(function(a,b){return b.size - a.size}).map((rf)=>{ %>
+    <tr>
+        <td><%- rf.name %></td>
+        <td><%- rf.sizeHuman %></td>
+    </tr>
+    <% }) %>
+    </tbody>
+</table>

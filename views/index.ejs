@@ -1,0 +1,23 @@
+<% include head.ejs %>
+<div class="container">
+
+    <% if(!scan){ %>
+    <h1>No scans have been preformed yet.</h1>
+    <% } else { %>
+
+    <h2 class="center mb-4"><%- scan.dateHuman %></h2>
+    <% const readsFolders = scan.readsFolders; %>
+    <% include displayReads.ejs %>
+
+
+    <% const scratchFolders = scan.scratchFolders; %>
+    <% include displayScratches.ejs %>
+
+
+    <% const homeFolders = scan.homeFolders; %>
+    <% include displayHomes.ejs %>
+
+    <% } %>
+</div><!-- /.container -->
+
+<% include foot.ejs %>

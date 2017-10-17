@@ -1,0 +1,28 @@
+{
+  "name": "space-probe",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "du": "^0.1.0",
+    "ejs": "~2.5.6",
+    "express": "~4.15.2",
+    "filehound": "^1.16.2",
+    "filesize": "^3.5.10",
+    "fs-extra": "^4.0.2",
+    "glob": "^7.1.2",
+    "less-middleware": "~2.2.0",
+    "lowdb": "^1.0.0",
+    "moment": "^2.18.1",
+    "morgan": "~1.8.1",
+    "node-schedule": "^1.2.5",
+    "serve-favicon": "~2.4.2",
+    "thinky": "^2.3.9",
+    "uuid": "latest"
+  }
+}

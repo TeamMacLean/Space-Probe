@@ -1,0 +1,39 @@
+749G    /tsl/scratch/bjornsom
+2.5K    /tsl/scratch/buntingd
+2.5K    /tsl/scratch/cabreral
+36K     /tsl/scratch/cevikv
+657G    /tsl/scratch/chanclue
+72M     /tsl/scratch/dagdasg
+2.0K    /tsl/scratch/derevnil
+2.5K    /tsl/scratch/dingp
+1.5T    /tsl/scratch/furzero
+2.5K    /tsl/scratch/grandelc
+4.1T    /tsl/scratch/guptay
+1.5T    /tsl/scratch/ilkn
+5.8G    /tsl/scratch/jacksonw
+
+adasdfasd
+2.0K    /tsl/scratch/janderso
+1.5T    /tsl/scratch/joueta
+5.2T    /tsl/scratch/kawashic
+2.5K    /tsl/scratch/kellnerr
+2.5K    /tsl/scratch/lrickett
+2.0K    /tsl/scratch/macleand
+1.7G    /tsl/scratch/maz
+
+ERRoR all the errors!±
+2.0K    /tsl/scratch/morenop
+99G     /tsl/scratch/penningh
+2.0K    /tsl/scratch/pfam30.0
+2.0K    /tsl/scratch/pingtao
+2.0K    /tsl/scratch/rallapag
+2.1T    /tsl/scratch/reyesac
+2.0K    /tsl/scratch/rigneyb
+4.0T    /tsl/scratch/shrestha
+184K    /tsl/scratch/smrtanalysis
+28K     /tsl/scratch/sschmidt
+2.0K    /tsl/scratch/stegmanm
+2.0K    /tsl/scratch/TSL_23
+2.5K    /tsl/scratch/werlerk
+477G    /tsl/scratch/winj
+2.0K    /tsl/scratch/witekk
