@@ -5,6 +5,8 @@ scanner.all()
     .then((folders) => {
 
 
+    console.log('scan done');
+
         //TODO save to files
         const ts = Math.round((new Date()).getTime() / 1000);
 
