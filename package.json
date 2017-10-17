@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "async": "^2.5.0",
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
@@ -20,9 +21,9 @@
     "moment": "^2.18.1",
     "morgan": "~1.8.1",
     "node-schedule": "^1.2.5",
+    "queue": "^4.4.1",
     "serve-favicon": "~2.4.2",
     "thinky": "^2.3.9",
-    "uuid": "latest",
-    "async": "latest"
+    "uuid": "latest"
   }
 }
