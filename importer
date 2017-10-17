@@ -1,0 +1,75 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const Scan = require('./models/scan');
+const Home = require('./models/homeFolder');
+const Scratch = require('./models/scratchFolder');
+const Read = require('./models/readsFolder');
+
+if (process.argv.length < 3) {
+    console.error('Usage: import <file>');
+    return process.exit(-1)
+}
+
+
+console.log('loading', process.argv[2]);
+
+fs.readFile(process.argv[2], function read(err, data) {
+    if (err) {
+        console.error(err);
+        return process.exit(-1);
+    }
+
+    const imported = JSON.parse(data);
+
+    if(!imported){
+        console.error('failed to parse');
+        return process.exit(-1);
+    }
+
+    new Scan({date: imported.scan.date})
+        .save()
+        .then(savedScan => {
+            return Promise.all(
+                [Promise.all(
+                    imported.home.map(h => {
+                        h.scanID = savedScan.id;
+                        return new Home(h).save();
+                    })
+                ),
+
+                Promise.all(
+                    imported.scratch.map(h => {
+                        h.scanID = savedScan.id;
+                        return new Scratch(h).save();
+                    })
+                ),
+
+                Promise.all(
+                    imported.reads.map(h => {
+                        h.scanID = savedScan.id;
+                        return new Read(h).save();
+                    })
+                )]
+            )
+
+        })
+        .then(() => {
+            console.log('DONE!');
+            process.exit(0);
+        })
+        .catch(err=>{
+            console.error(err);
+            process.exit(-1);
+        })
+
+
+});
+
+// require('./')(process.argv[2], function (err, size) {
+//     if (err) {
+//         console.error(err)
+//         return process.exit(-1)
+//     }
+//     console.log(size, process.argv[2])
+// })
