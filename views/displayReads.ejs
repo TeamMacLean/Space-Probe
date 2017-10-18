@@ -17,7 +17,7 @@
         <td>
 
             <% if (rf.sizePrevious && rf.size !== rf.sizePrevious) { %>
-            <%- `${ rf.size > rf.sizePrevious ? '>' : '<'}${Math.round(100 * Math.abs((rf.size - rf.sizePrevious) / ( (rf.size + rf.sizePrevious) / 2 )))}%` %>
+            <%- rf.differenceHuman %>
             <% } else { %>
             Unchanged
             <% } %>

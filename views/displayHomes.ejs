@@ -8,14 +8,16 @@
     </tr>
     </thead>
     <tbody>
-    <% homeFolders.sort(function(a,b){return b.size - a.size}).map((rf)=>{ %>
+    <% homeFolders.sort(function (a, b) {
+        return b.size - a.size
+    }).map((rf)=>{ %>
     <tr>
         <td><%- rf.name %></td>
         <td><%- rf.sizeHuman %></td>
         <td>
 
             <% if (rf.sizePrevious && rf.size !== rf.sizePrevious) { %>
-            <%- `${ rf.size > rf.sizePrevious ? '>' : '<'}${Math.round(100 * Math.abs((rf.size - rf.sizePrevious) / ( (rf.size + rf.sizePrevious) / 2 )))}%` %>
+            <%- rf.differenceHuman %>
             <% } else { %>
             Unchanged
             <% } %>
