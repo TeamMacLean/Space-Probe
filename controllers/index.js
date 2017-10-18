@@ -59,12 +59,10 @@ function compareScans(current, previous) {
             sf.sizeHumanPrevious = pFound[0].sizeHuman;
             sf.sizeDifference = sf.size - pFound[0].size;
 
-            console.log(sf.name, sf.size, pFound[0].size, sf.sizeDifference);
 
 
             if (Math.abs(sf.sizeDifference) > 0) {
                 sf.sizeDifferenceHuman = `${sf.sizeDifference > 0 ? '+' : '-'}  ${filesize(Math.abs(sf.sizeDifference))}`;
-                console.log(sf.name, sf.sizeDifferenceHuman)
             }
         }
 
@@ -84,8 +82,14 @@ function compareScans(current, previous) {
             hf.sizePrevious = pFound[0].size;
             hf.sizeHumanPrevious = pFound[0].sizeHuman;
             hf.sizeDifference = hf.size - pFound[0].size;
+
+            console.log(hf.name, hf.size, pFound[0].size, hf.sizeDifference);
+
+
             if (Math.abs(hf.sizeDifference) > 0) {
-                hf.sizeDifferenceHuman = `${hf.sizeDifference > 0 ? '+' : '-'}  ${filesize(Math.abs(hf.sizeDifference))}`
+                hf.sizeDifferenceHuman = `${hf.sizeDifference > 0 ? '+' : '-'}  ${filesize(Math.abs(hf.sizeDifference))}`;
+                console.log(hf.name, hf.sizeDifferenceHuman)
+
             }
         }
 
