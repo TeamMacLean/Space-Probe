@@ -9,6 +9,63 @@ const r = require('../lib/thinky').r;
 
 const Scan = require('../models/scan');
 
+/**
+ *
+ * @param current
+ * @param previous
+ */
+function compareScans(current, previous) {
+
+
+    if (!previous) {
+        console.log(previous);
+        return current;
+    }
+
+    current.readsFolders = current.readsFolders.map(rf => {
+        const pFound = previous.readsFolders.filter(prf => {
+            return prf.name === rf.name;
+        });
+
+        if (pFound && pFound.length) {
+            rf.sizePrevious = pFound[0].size;
+            rf.sizeHumanPrevious = pFound[0].sizeHuman;
+        }
+
+        return rf;
+    });
+
+    current.scratchFolders = current.scratchFolders.map(sf => {
+        const pFound = previous.scratchFolders.filter(psf => {
+            return psf.name === sf.name;
+        });
+
+        if (pFound && pFound.length) {
+            sf.sizePrevious = pFound[0].size;
+            sf.sizeHumanPrevious = pFound[0].sizeHuman;
+        }
+
+        return sf;
+    });
+
+    current.homeFolders = current.homeFolders.map(hf => {
+        const pFound = previous.scratchFolders.filter(phf => {
+            return phf.name === hf.name;
+        });
+
+        if (pFound && pFound.length) {
+            hf.sizePrevious = pFound[0].size;
+            hf.sizeHumanPrevious = pFound[0].sizeHuman;
+        }
+
+        return hf;
+    });
+
+    return current;
+
+}
+
+
 /* GET home page. */
 router.get('/', function (req, res, next) {
 
@@ -17,8 +74,12 @@ router.get('/', function (req, res, next) {
         .getJoin()
         .run()
         .then(scans => {
-            console.log('scan',scans[0]);
-            res.render('index', {scan: scans[0]});
+
+            const scanWithComparison = compareScans(scans[0], scans[1]);
+            // .then(scanWithComparison => {
+            return res.render('index', {scan: scanWithComparison});
+            // });
+
 
         });
 });

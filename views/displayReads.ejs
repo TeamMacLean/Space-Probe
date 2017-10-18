@@ -4,13 +4,24 @@
     <tr>
         <th>Name</th>
         <th>Size</th>
+        <th>Change</th>
     </tr>
     </thead>
     <tbody>
-    <% readsFolders.sort(function(a,b){return b.size - a.size}).map((rf)=>{ %>
+    <% readsFolders.sort(function (a, b) {
+        return b.size - a.size
+    }).map((rf)=>{ %>
     <tr>
         <td><%- rf.name %></td>
         <td><%- rf.sizeHuman %></td>
+        <td>
+
+            <% if (rf.sizePrevious && rf.size !== rf.sizePrevious) { %>
+            <%- `${ rf.size > rf.sizePrevious ? '>' : '<'}${Math.round(100 * Math.abs((rf.size - rf.sizePrevious) / ( (rf.size + rf.sizePrevious) / 2 )))}%` %>
+            <% } else { %>
+            Unchanged
+            <% } %>
+        </td>
     </tr>
     <% }) %>
     </tbody>
