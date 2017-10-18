@@ -63,7 +63,8 @@ function compareScans(current, previous) {
 
 
             if (Math.abs(sf.sizeDifference) > 0) {
-                sf.sizeDifferenceHuman = `${sf.sizeDifference > 0 ? '+' : '-'}  ${filesize(Math.abs(sf.sizeDifference))}`
+                sf.sizeDifferenceHuman = `${sf.sizeDifference > 0 ? '+' : '-'}  ${filesize(Math.abs(sf.sizeDifference))}`;
+                console.log(sf.name, sf.sizeDifferenceHuman)
             }
         }
 
