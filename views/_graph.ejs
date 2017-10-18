@@ -29,10 +29,15 @@
             return moment(new Date(i.scan.date)).format('DD/MM/YY HH:MM');
         })
     }, {
-        high: 3000,
-        low: 0,
+
 
         axisY: {
+            type: Chartist.FixedScaleAxis,
+//            divisor: 3
+            high: 3000,
+            low: 0,
+//            divisor: 4,
+            ticks:[0, 1000, 2000, 3000]
 //            onlyInteger: true,
 //            type: Chartist.FixedScaleAxis,
 //            ticks: [0, 1000, 2000, 3000],
