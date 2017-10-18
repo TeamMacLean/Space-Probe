@@ -20,3 +20,7 @@ HomeFolder.pre('save', function () {
 // });
 
 module.exports = HomeFolder;
+
+
+const Scan = require('./scan');
+HomeFolder.belongsTo(Scan,'scan', 'scanID', 'id');

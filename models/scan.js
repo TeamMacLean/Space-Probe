@@ -13,6 +13,13 @@ Scan.pre('save', function () {
     this.dateHuman = moment(this.date).format('MMMM Do YYYY, h:mm:ss a');
 });
 
+
+// Scan.defineStatic('dateHumanShort', function () {
+//     this.dateHumanShort = moment(this.date).format('DDMMYYYY');
+//     return this;
+// });
+
+
 module.exports = Scan;
 
 const ReadsFolder = require('./readsFolder');

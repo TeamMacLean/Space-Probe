@@ -1,0 +1,59 @@
+<% include ../head.ejs %>
+
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.11.0/chartist.min.js"></script>-->
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.11.0/chartist.min.css">-->
+
+
+<div id="chart" class="ct-chart ct-perfect-fourth"></div>
+<!--<div id="tooltip"><b>Selected Value:</b>-->
+
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <script>
+
+        var instances = <%- JSON.stringify(instances) %>;
+        //    console.log(instances);
+
+        var labels = instances.map(function (i) {
+            return i.scan.dateHuman;
+        });
+
+        var series = [instances.map(function (i) {
+            return i.size / Math.pow(1024, 3);
+        })];
+
+
+        //    console.log(labels);
+        //    console.log(series);
+
+
+        var chart = new Chartist.Line('#chart', {
+            labels: labels,
+            series: series
+        }, {
+            fullWidth: true,
+            chartPadding: {
+                right: 40,
+                left: 40
+            }
+        });
+
+
+//        var addedEvents = false;
+//        chart.on('draw', function () {
+//            if (!addedEvents) {
+//                document.querySelector('.ct-bar').addEventListener('mouseover', function () {
+//                    document.querySelector('#tooltip').html('<b>Selected Value: </b>' + $(this).attr('ct:value'));
+//                });
+//
+//                document.querySelector('.ct-bar').addEventListener('mouseout', function () {
+//                    document.querySelector('#tooltip').html('<b>Selected Value:</b>');
+//                });
+//            }
+//        });
+
+    </script>
+
+    <% include ../foot.ejs %>

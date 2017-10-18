@@ -12,7 +12,7 @@
         return b.size - a.size
     }).map((rf)=>{ %>
     <tr>
-        <td><%- rf.name %></td>
+        <td><a href="/homes/<%- rf.name %>"><%- rf.name %></a></td>
         <td><%- rf.sizeHuman %></td>
         <td>
             <%- rf.sizeDifferenceHuman %>

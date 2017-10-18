@@ -16,3 +16,6 @@ ScratchFolder.pre('save', function () {
 });
 
 module.exports = ScratchFolder;
+
+const Scan = require('./scan');
+ScratchFolder.belongsTo(Scan,'scan', 'scanID', 'id');

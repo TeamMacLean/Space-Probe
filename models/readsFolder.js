@@ -15,3 +15,6 @@ ReadsFolder.pre('save', function () {
 });
 
 module.exports = ReadsFolder;
+
+const Scan = require('./scan');
+ReadsFolder.belongsTo(Scan,'scan', 'scanID', 'id');
