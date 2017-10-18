@@ -15,4 +15,8 @@ HomeFolder.pre('save', function () {
     this.sizeHuman = filesize(this.size);
 });
 
+// HomeFolder.defineStatic('getChanges',function(){
+//
+// });
+
 module.exports = HomeFolder;

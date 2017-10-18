@@ -16,10 +16,10 @@
         <td><%- rf.sizeHuman %></td>
         <td>
 
-            <% if (rf.sizePrevious && rf.size !== rf.sizePrevious) { %>
+            <% if (rf.sizePrevious) { %>
             <%- rf.differenceHuman %>
             <% } else { %>
-            Unchanged
+            unknown
             <% } %>
         </td>
     </tr>

@@ -28,7 +28,14 @@ function compareScans(current, previous) {
         if (pFound && pFound.length) {
             rf.sizePrevious = pFound[0].size;
             rf.sizeHumanPrevious = pFound[0].sizeHuman;
-            rf.differenceHuman = `${rf.size > pFound[0].size ? '+' : '-'}  ${filesize(Math.abs(rf.size - pFound[0].size))}`
+
+            if (rf.size === pFound[0].size) {
+                rf.differenceHuman = '0';
+            } else {
+                rf.differenceHuman = `${rf.size > pFound[0].size ? '+' : '-'}  ${filesize(Math.abs(rf.size - pFound[0].size))}`
+
+            }
+
         }
 
         return rf;
@@ -42,7 +49,12 @@ function compareScans(current, previous) {
         if (pFound && pFound.length) {
             sf.sizePrevious = pFound[0].size;
             sf.sizeHumanPrevious = pFound[0].sizeHuman;
-            sf.differenceHuman = `${sf.size > pFound[0].size ? '+' : '-'}  ${filesize(Math.abs(sf.size - pFound[0].size))}`
+
+            if (sf.size === pFound[0].size) {
+                sf.differenceHuman = '0';
+            } else {
+                sf.differenceHuman = `${sf.size > pFound[0].size ? '+' : '-'}  ${filesize(Math.abs(sf.size - pFound[0].size))}`
+            }
         }
 
         return sf;
@@ -56,7 +68,12 @@ function compareScans(current, previous) {
         if (pFound && pFound.length) {
             hf.sizePrevious = pFound[0].size;
             hf.sizeHumanPrevious = pFound[0].sizeHuman;
-            hf.differenceHuman = `${hf.size > pFound[0].size ? '+' : '-'}  ${filesize(Math.abs(hf.size - pFound[0].size))}`
+
+            if (hf.size === pFound[0].size) {
+                hf.differenceHuman = '0';
+            } else {
+                hf.differenceHuman = `${hf.size > pFound[0].size ? '+' : '-'}  ${filesize(Math.abs(hf.size - pFound[0].size))}`
+            }
         }
 
         return hf;
