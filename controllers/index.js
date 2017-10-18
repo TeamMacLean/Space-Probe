@@ -23,7 +23,8 @@ function compareScans(current, previous) {
     current.readsFolders = current.readsFolders.map(rf => {
         rf.sizePrevious = 0;
         rf.sizeHumanPrevious = 0;
-        rf.differenceHuman = '0';
+        rf.sizeDifference = 0;
+        rf.sizeDifferenceHuman = '0';
         const pFound = previous.readsFolders.filter(prf => {
             return prf.name === rf.name;
         });
@@ -31,8 +32,10 @@ function compareScans(current, previous) {
         if (pFound && pFound.length) {
             rf.sizePrevious = pFound[0].size;
             rf.sizeHumanPrevious = pFound[0].sizeHuman;
-
-            rf.differenceHuman = `${rf.size > pFound[0].size ? '+' : '-'}  ${filesize(Math.abs(rf.size - pFound[0].size))}`
+            rf.sizeDifference = rf.size - pFound[0].size;
+            if (rf.sizeDifference) {
+                rf.sizeDifferenceHuman = `${rf.sizeDifference > 0 ? '+' : '-'}  ${filesize(Math.abs(rf.sizeDifference))}`
+            }
         }
 
         return rf;
@@ -42,9 +45,8 @@ function compareScans(current, previous) {
 
         sf.sizePrevious = 0;
         sf.sizeHumanPrevious = 0;
-        sf.differenceHuman = '0';
-
-
+        sf.sizeDifference = 0;
+        sf.sizeDifferenceHuman = '0';
         const pFound = previous.scratchFolders.filter(psf => {
             return psf.name === sf.name;
         });
@@ -52,7 +54,10 @@ function compareScans(current, previous) {
         if (pFound && pFound.length) {
             sf.sizePrevious = pFound[0].size;
             sf.sizeHumanPrevious = pFound[0].sizeHuman;
-            sf.differenceHuman = `${sf.size > pFound[0].size ? '+' : '-'}  ${filesize(Math.abs(sf.size - pFound[0].size))}`
+            sf.sizeDifference = sf.size - pFound[0].size;
+            if (sf.sizeDifference) {
+                sf.sizeDifferenceHuman = `${sf.sizeDifference > 0 ? '+' : '-'}  ${filesize(Math.abs(sf.sizeDifference))}`
+            }
         }
 
         return sf;
@@ -61,7 +66,8 @@ function compareScans(current, previous) {
     current.homeFolders = current.homeFolders.map(hf => {
         hf.sizePrevious = 0;
         hf.sizeHumanPrevious = 0;
-        hf.differenceHuman = '0';
+        hf.sizeDifference = 0;
+        hf.sizeDifferenceHuman = '0';
         const pFound = previous.scratchFolders.filter(phf => {
             return phf.name === hf.name;
         });
@@ -69,7 +75,10 @@ function compareScans(current, previous) {
         if (pFound && pFound.length) {
             hf.sizePrevious = pFound[0].size;
             hf.sizeHumanPrevious = pFound[0].sizeHuman;
-            hf.differenceHuman = `${hf.size > pFound[0].size ? '+' : '-'}  ${filesize(Math.abs(hf.size - pFound[0].size))}`
+            hf.sizeDifference = hf.size - pFound[0].size;
+            if (hf.sizeDifference) {
+                hf.sizeDifferenceHuman = `${hf.sizeDifference > 0 ? '+' : '-'}  ${filesize(Math.abs(hf.sizeDifference))}`
+            }
         }
 
         return hf;

@@ -15,11 +15,7 @@
         <td><%- rf.name %></td>
         <td><%- rf.sizeHuman %></td>
         <td>
-            <% if (rf.sizePrevious) { %>
-            <%- rf.differenceHuman %>
-            <% } else { %>
-            unknown
-            <% } %>
+            <%- rf.sizeDifferenceHuman %>
         </td>
     </tr>
     <% }) %>
