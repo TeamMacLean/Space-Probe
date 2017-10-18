@@ -33,7 +33,7 @@ function compareScans(current, previous) {
             rf.sizePrevious = pFound[0].size;
             rf.sizeHumanPrevious = pFound[0].sizeHuman;
             rf.sizeDifference = rf.size - pFound[0].size;
-            if (rf.sizeDifference) {
+            if (Math.abs(rf.sizeDifference) > 0) {
                 rf.sizeDifferenceHuman = `${rf.sizeDifference > 0 ? '+' : '-'}  ${filesize(Math.abs(rf.sizeDifference))}`
             }
         }
@@ -51,14 +51,14 @@ function compareScans(current, previous) {
             return psf.name === sf.name;
         });
 
-        console.log(sf.size, pFound[0].size);
+        // console.log(sf.size, pFound[0].size);
 
 
         if (pFound && pFound.length) {
             sf.sizePrevious = pFound[0].size;
             sf.sizeHumanPrevious = pFound[0].sizeHuman;
             sf.sizeDifference = sf.size - pFound[0].size;
-            if (sf.sizeDifference) {
+            if (Math.abs(sf.sizeDifference) > 0) {
                 sf.sizeDifferenceHuman = `${sf.sizeDifference > 0 ? '+' : '-'}  ${filesize(Math.abs(sf.sizeDifference))}`
             }
         }
@@ -79,7 +79,7 @@ function compareScans(current, previous) {
             hf.sizePrevious = pFound[0].size;
             hf.sizeHumanPrevious = pFound[0].sizeHuman;
             hf.sizeDifference = hf.size - pFound[0].size;
-            if (hf.sizeDifference) {
+            if (Math.abs(hf.sizeDifference) > 0) {
                 hf.sizeDifferenceHuman = `${hf.sizeDifference > 0 ? '+' : '-'}  ${filesize(Math.abs(hf.sizeDifference))}`
             }
         }
