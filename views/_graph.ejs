@@ -2,27 +2,61 @@
 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
 <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
 <script>
 
+    //FROM 0GB to 3000GB
+
     var instances = <%- JSON.stringify(instances) %>;
+    instances = instances.reverse();
 
-    var labels = instances.map(function (i) {
-        return i.scan.dateHuman;
-    });
-
-    var series = [instances.map(function (i) {
-        return i.size / Math.pow(1024, 3);
-    })];
+    /**
+     * @return {number}
+     */
+    function BytesToGB(bytes) {
+        return bytes / Math.pow(1024, 3)
+    }
 
     var chart = new Chartist.Line('#chart', {
-        labels: labels,
-        series: series
+//        labels: labels,
+        series: [
+            instances.map(function (i) {
+                return BytesToGB(i.size);
+//                return i.size;
+            })
+        ],
+        labels: instances.map(function (i) {
+            return moment(new Date(i.scan.date)).format('DD/MM/YY HH:MM');
+        })
     }, {
-        fullWidth: true,
-        chartPadding: {
-            right: 40,
-            left: 40
-        }
+        high: 3000,
+        low: 0,
+
+        axisY: {
+//            onlyInteger: true,
+//            type: Chartist.FixedScaleAxis,
+//            ticks: [0, 1000, 2000, 3000],
+//            low: 0
+        },
+
+//        fullWidth: true,
+//        showArea: true,
+//        chartPadding: {
+//            right: 40,
+//            left: 40
+//        },
+//        axisX: {
+//            type: Chartist.FixedScaleAxis,
+//            divisor: 2,
+//            labelInterpolationFnc: function (value) {
+//                console.log(value);
+//                return moment(value).format('MMM D');
+//            }
+//        },
+//        axisY: {
+//            showLabel: false,
+//            showGrid: false
+//        }
     });
 
 </script>

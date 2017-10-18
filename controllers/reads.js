@@ -14,7 +14,6 @@ module.exports = {
             }))
             .limit(5) //ONLY SHOW LAST 10 SCANS!!
             .then(instances => {
-                console.log(instances);
                 return res.render('reads/show', {instances});
             })
             .catch(err => {
