@@ -1,0 +1,28 @@
+<div id="chart" class="ct-chart ct-perfect-fourth"></div>
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+<script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+<script>
+
+    var instances = <%- JSON.stringify(instances) %>;
+
+    var labels = instances.map(function (i) {
+        return i.scan.dateHuman;
+    });
+
+    var series = [instances.map(function (i) {
+        return i.size / Math.pow(1024, 3);
+    })];
+
+    var chart = new Chartist.Line('#chart', {
+        labels: labels,
+        series: series
+    }, {
+        fullWidth: true,
+        chartPadding: {
+            right: 40,
+            left: 40
+        }
+    });
+
+</script>
