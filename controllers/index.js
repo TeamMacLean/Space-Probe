@@ -51,6 +51,9 @@ function compareScans(current, previous) {
             return psf.name === sf.name;
         });
 
+        console.log(sf.size, pFound[0].size);
+
+
         if (pFound && pFound.length) {
             sf.sizePrevious = pFound[0].size;
             sf.sizeHumanPrevious = pFound[0].sizeHuman;
