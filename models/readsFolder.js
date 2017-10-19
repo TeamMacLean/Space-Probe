@@ -1,7 +1,7 @@
 const thinky = require('../lib/thinky.js');
-const r = thinky.r;
+// const r = thinky.r;
 const type = thinky.type;
-const filesize = require('filesize');
+const filesize = require('../lib/filesize');
 
 const ReadsFolder = thinky.createModel("ReadsFolder", {
     id: type.string(),
