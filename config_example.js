@@ -6,6 +6,7 @@ module.exports = {
     xfiles: [
         '*.bam*',
         '*.fastq*',
-        '*.fq*'
+        '*.fq*',
+        '*.sam*'
     ]
 };

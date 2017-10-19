@@ -1,5 +1,4 @@
 const thinky = require('../lib/thinky.js');
-// const r = thinky.r;
 const type = thinky.type;
 const filesize = require('../lib/filesize');
 
@@ -8,7 +7,7 @@ const ScratchFolder = thinky.createModel("ScratchFolder", {
     scanID: type.string().required(),
     name: type.string().required(),
     size: type.number().required(),
-    xfiles: [type.string()]
+    xfiles: [type.object()]
 });
 
 ScratchFolder.pre('save', function () {
@@ -18,4 +17,4 @@ ScratchFolder.pre('save', function () {
 module.exports = ScratchFolder;
 
 const Scan = require('./scan');
-ScratchFolder.belongsTo(Scan,'scan', 'scanID', 'id');
+ScratchFolder.belongsTo(Scan, 'scan', 'scanID', 'id');

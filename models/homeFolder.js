@@ -7,7 +7,8 @@ const HomeFolder = thinky.createModel("HomeFolder", {
     scanID: type.string().required(),
     name: type.string().required(),
     size: type.number().required(),
-    sizeHuman: type.string().required()
+    sizeHuman: type.string().required(),
+    xfiles: [type.object()]
 });
 
 
@@ -23,4 +24,4 @@ module.exports = HomeFolder;
 
 
 const Scan = require('./scan');
-HomeFolder.belongsTo(Scan,'scan', 'scanID', 'id');
+HomeFolder.belongsTo(Scan, 'scan', 'scanID', 'id');
