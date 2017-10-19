@@ -5,15 +5,15 @@ const fs = require('fs');
 
 scanner.all()
     .then((folders) => {
-    console.log('scan done');
         const ts = Math.round((new Date()).getTime() / 1000);
-        fs.writeFile(`./scan-${ts}.json`, JSON.stringify(folders, null, 2), function (err) {
+        const outputPath = `./scan-${ts}.json`;
+        fs.writeFile(outputPath, JSON.stringify(folders, null, 2), function (err) {
             if (err) {
-                console.log(err);
-                process.exit();
+                console.log('failed to save scan results', err);
+                // process.exit();
+            } else {
+                console.log("scan results saved to", outputPath);
             }
-            console.log("The file was saved!");
-            console.log('done');
         });
     })
-    .catch(err => console.error('ERROR!',err));
+    .catch(err => console.error('ERROR!', err));
