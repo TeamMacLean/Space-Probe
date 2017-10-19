@@ -1,8 +1,6 @@
 // const ReadsFolder = require('../models/readsFolder');
 // const ScratchFolder = require('../models/scratchFolder');
 // const HomeFolder = require('../models/homeFolder');
-const express = require('express');
-const router = express.Router();
 const Scan = require('../models/scan');
 const filesize = require('filesize');
 const r = require('../lib/thinky').r;
@@ -16,7 +14,7 @@ function compareScans(current, previous) {
 
 
     if (!previous) {
-        console.log(previous);
+        console.log('NO PREVIOUS');
         return current;
     }
 
@@ -100,6 +98,9 @@ module.exports = {
             .getJoin()
             .run()
             .then(scans => {
+
+                console.log(scans[0], scans[1]);
+
                 const scanWithComparison = compareScans(scans[0], scans[1]);
                 return res.render('index', {scan: scanWithComparison});
             });
