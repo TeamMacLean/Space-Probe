@@ -16,4 +16,4 @@ scanner.all()
             console.log('done');
         });
     })
-    .catch(err => console.error(err));
+    .catch(err => console.error('ERROR!',err));
