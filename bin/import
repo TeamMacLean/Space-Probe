@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
-const Scan = require('./models/scan');
-const Home = require('./models/homeFolder');
-const Scratch = require('./models/scratchFolder');
-const Read = require('./models/readsFolder');
+const Scan = require('../models/scan');
+const Home = require('../models/homeFolder');
+const Scratch = require('../models/scratchFolder');
+const Read = require('../models/readsFolder');
 const moment = require('moment');
 
 if (process.argv.length < 3) {
