@@ -1,4 +1,4 @@
-const scanner = require('./lib/scanner_noDB');
+const scanner = require('./lib/scanner');
 const fs = require('fs');
 
 scanner.all()

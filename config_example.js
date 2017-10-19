@@ -1,6 +1,11 @@
 module.exports = {
-    port:3000,
+    port: 3000,
     readsRootPath: '',
     scratchRootPath: '',
-    homeRootPath: ''
+    homeRootPath: '',
+    xfiles: [
+        '*.bam*',
+        '*.fastq*',
+        '*.fq*'
+    ]
 };
