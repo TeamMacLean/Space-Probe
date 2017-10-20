@@ -40,26 +40,20 @@ function compareScans(current, previous) {
     });
 
     current.scratchFolders = current.scratchFolders.map(sf => {
-
         sf.sizePrevious = 0;
         sf.sizeHumanPrevious = 0;
         sf.sizeDifference = 0;
         sf.sizeDifferenceHuman = '0';
-        const pFound = previous.scratchFolders.filter(psf => {
-            return psf.name === sf.name;
+        const pFound = previous.readsFolders.filter(prf => {
+            return prf.name === sf.name;
         });
-
-        // console.log(sf.size, pFound[0].size);
-
 
         if (pFound && pFound.length) {
             sf.sizePrevious = pFound[0].size;
             sf.sizeHumanPrevious = pFound[0].sizeHuman;
             sf.sizeDifference = sf.size - pFound[0].size;
-
-
             if (Math.abs(sf.sizeDifference) > 0) {
-                sf.sizeDifferenceHuman = `${sf.sizeDifference > 0 ? '+' : '-'}  ${filesize(Math.abs(sf.sizeDifference))}`;
+                sf.sizeDifferenceHuman = `${sf.sizeDifference > 0 ? '+' : '-'}  ${filesize(Math.abs(sf.sizeDifference))}`
             }
         }
 
@@ -99,7 +93,7 @@ module.exports = {
             .run()
             .then(scans => {
 
-                console.log(scans[0], scans[1]);
+                // console.log(scans[0], scans[1]);
 
                 const scanWithComparison = compareScans(scans[0], scans[1]);
                 return res.render('index', {scan: scanWithComparison});
