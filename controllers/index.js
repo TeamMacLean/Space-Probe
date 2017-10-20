@@ -74,7 +74,7 @@ function compareScans(current, previous) {
             hf.sizeHumanPrevious = pFound[0].sizeHuman;
             hf.sizeDifference = hf.size - pFound[0].size;
 
-            if (Math.abs(hf.sizeDifference) > 0) {
+            if (hf.sizeDifference !== 0) {
                 hf.sizeDifferenceHuman = `${hf.sizeDifference > 0 ? '+' : '-'}  ${filesize(Math.abs(hf.sizeDifference))}`;
             }
         }
