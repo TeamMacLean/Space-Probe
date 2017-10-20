@@ -1,29 +1,52 @@
-<div id="chart" class="ct-chart ct-perfect-fourth"></div>
-
+<div class="container">
+    <div id="chart" class="ct-chart ct-perfect-fourth"></div>
+</div>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+<link rel="stylesheet"
+      href="https://rawgit.com/Globegitter/chartist-plugin-tooltip/master/dist/chartist-plugin-tooltip.css">
 <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
+
+<script src="https://unpkg.com/chartist-plugin-tooltips@0.0.17/dist/chartist-plugin-tooltip.js"></script>
+<script src="https://rawgit.com/alexstanbury/chartist-plugin-axistitle/master/dist/chartist-plugin-axistitle.min.js"></script>
 <script>
 
     //FROM 0GB to 3000GB
 
     var instances = <%- JSON.stringify(instances) %>;
-//    instances = instances.reverse();
+    //    instances = instances.reverse();
 
     console.log(instances);
 
     /**
      * @return {number}
      */
-    function BytesToGB(bytes) {
-        return bytes / Math.pow(1024, 3)
+    function BytesToTB(bytes) {
+        return bytes / Math.pow(1024, 4)
+    }
+
+    function filesize(bytes, other) {
+        const si = other | false;
+        const thresh = si ? 1000 : 1024;
+        if (Math.abs(bytes) < thresh) {
+            return bytes + ' B';
+        }
+        const units = si
+            ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+            : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+        let u = -1;
+        do {
+            bytes /= thresh;
+            ++u;
+        } while (Math.abs(bytes) >= thresh && u < units.length - 1);
+        return bytes.toFixed(1) + ' ' + units[u];
     }
 
     var chart = new Chartist.Line('#chart', {
 //        labels: labels,
         series: [
             instances.map(function (i) {
-                return BytesToGB(i.size);
+                return {meta: filesize(i.size), value: BytesToTB(i.size)};
 //                return i.size;
             })
         ],
@@ -31,15 +54,44 @@
             return moment(new Date(i.scan.date)).format('DD/MM/YY HH:MM');
         })
     }, {
+        chartPadding: {
+            top: 20,
+            right: 0,
+            bottom: 30,
+            left: 0
+        },
+        plugins: [
+            Chartist.plugins.tooltip({}),
+            Chartist.plugins.ctAxisTitle({
+                axisX: {
+                    axisTitle: 'Date (DD/MM/YY HH:MM)',
 
-
+                    axisClass: 'ct-axis-title',
+                    offset: {
+                        x: 0,
+                        y: 50
+                    },
+                    textAnchor: 'middle'
+                },
+                axisY: {
+                    axisTitle: 'Size (TiB)',
+                    axisClass: 'ct-axis-title',
+                    offset: {
+                        x: 0,
+                        y: 0
+                    },
+                    textAnchor: 'middle',
+                    flipTitle: false
+                }
+            })
+        ],
         axisY: {
             type: Chartist.FixedScaleAxis,
 //            divisor: 3
-            high: 3000,
+            high: 3,
             low: 0,
 //            divisor: 4,
-            ticks:[0, 1000, 2000, 3000]
+            ticks: [0, 1, 2, 3],
 //            onlyInteger: true,
 //            type: Chartist.FixedScaleAxis,
 //            ticks: [0, 1000, 2000, 3000],
@@ -47,7 +99,7 @@
         },
 
 //        fullWidth: true,
-//        showArea: true,
+        showArea: true,
 //        chartPadding: {
 //            right: 40,
 //            left: 40
