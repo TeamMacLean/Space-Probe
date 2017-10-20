@@ -72,7 +72,7 @@ function compareScans(current, previous) {
         if (pFound && pFound.length) {
             hf.sizePrevious = pFound[0].size;
 
-            console.log('previous', pFound[0].size, 'current', hf.size, 'difference', hf.size - pFound[0].size);
+            console.log(hf.name, 'previous', pFound[0].size, 'current', hf.size, 'difference', hf.size - pFound[0].size);
 
             hf.sizeHumanPrevious = pFound[0].sizeHuman;
             hf.sizeDifference = hf.size - pFound[0].size;
