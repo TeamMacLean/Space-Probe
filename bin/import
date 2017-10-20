@@ -38,8 +38,7 @@ fs.readFile(process.argv[2], function read(err, data) {
                     .save()
                     .then(savedScan => {
 
-                        console.log(savedScan.dateHuman, dateHuman, savedScan.dateHuman === dateHuman);
-                        // console.log(new Date(imported.scan.date, savedScan.date, imported.scan.date === savedScan.date,);
+                        // console.log(savedScan.dateHuman, dateHuman, savedScan.dateHuman === dateHuman);
                         return Promise.all(
                             [
                                 Promise.all(
