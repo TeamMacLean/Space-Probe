@@ -51,7 +51,6 @@ fs.readFile(process.argv[2], function read(err, data) {
                                 Promise.all(
                                     imported.scratch.map(h => {
                                         h.scanID = savedScan.id;
-                                        console.log(h);
                                         return new Scratch(h).save();
                                     })
                                 ),

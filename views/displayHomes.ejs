@@ -5,6 +5,7 @@
         <th>Name</th>
         <th>Size</th>
         <th>Change</th>
+        <th>xFiles</th>
     </tr>
     </thead>
     <tbody>
@@ -16,6 +17,9 @@
         <td><%- rf.sizeHuman %></td>
         <td>
             <%- rf.sizeDifferenceHuman %>
+        </td>
+        <td>
+            <% rf.xfiles.length %>
         </td>
     </tr>
     <% }) %>
