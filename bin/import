@@ -41,12 +41,13 @@ fs.readFile(process.argv[2], function read(err, data) {
                         console.log(savedScan.dateHuman, dateHuman, savedScan.dateHuman === dateHuman);
                         // console.log(new Date(imported.scan.date, savedScan.date, imported.scan.date === savedScan.date,);
                         return Promise.all(
-                            [Promise.all(
-                                imported.home.map(h => {
-                                    h.scanID = savedScan.id;
-                                    return new Home(h).save();
-                                })
-                            ),
+                            [
+                                Promise.all(
+                                    imported.home.map(h => {
+                                        h.scanID = savedScan.id;
+                                        return new Home(h).save();
+                                    })
+                                ),
 
                                 Promise.all(
                                     imported.scratch.map(h => {
@@ -60,17 +61,29 @@ fs.readFile(process.argv[2], function read(err, data) {
                                         h.scanID = savedScan.id;
                                         return new Read(h).save();
                                     })
-                                )]
+                                )
+                            ]
                         )
 
                     })
-                    .then(() => {
+                    .then(savedModels => {
                         console.log('DONE!');
                         process.exit(0);
                     })
                     .catch(err => {
                         console.error(err);
-                        process.exit(-1);
+                        Scan.filter({dateHuman: dateHuman}).deleteAll()
+                            .then(() => {
+                                console.log('cleaned up from error');
+                                process.exit(-1);
+                            })
+                            .catch(err => {
+                                console.log('failed to clean up from error');
+                                console.error(err);
+                                process.exit(-1);
+                            })
+
+
                     })
 
             } else {
