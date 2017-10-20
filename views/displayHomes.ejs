@@ -19,7 +19,7 @@
             <%- rf.sizeDifferenceHuman %>
         </td>
         <td>
-            <% rf.xfiles.length %>
+            <%- rf.xfiles ? rf.xfiles.length : 'unlisted' %>
         </td>
     </tr>
     <% }) %>
