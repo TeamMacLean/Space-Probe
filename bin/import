@@ -72,7 +72,14 @@ fs.readFile(process.argv[2], function read(err, data) {
                     })
                     .catch(err => {
                         console.error(err);
-                        Scan.filter({dateHuman: dateHuman}).deleteAll()
+                        Scan.filter({dateHuman: dateHuman})
+                            .then((duplicates) => {
+                                return Promise.all(
+                                    duplicates.map(d => {
+                                        return d.deleteAll()
+                                    })
+                                )
+                            })
                             .then(() => {
                                 console.log('cleaned up from error');
                                 process.exit(-1);
