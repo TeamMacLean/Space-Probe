@@ -2,7 +2,7 @@
 // const ScratchFolder = require('../models/scratchFolder');
 // const HomeFolder = require('../models/homeFolder');
 const Scan = require('../models/scan');
-const filesize = require('filesize');
+const filesize = require('../lib/filesize');
 const r = require('../lib/thinky').r;
 
 /**
