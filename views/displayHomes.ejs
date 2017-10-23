@@ -14,7 +14,7 @@
     } while (Math.abs(bytes) >= thresh && u < units.length - 1);
     return bytes.toFixed(1) + ' ' + units[u];
 } %>
-<% const total = homefolder.reduce((total, current) => {
+<% const total = homeFolders.reduce((total, current) => {
     return total + current.size
 }, 0)
 %>
