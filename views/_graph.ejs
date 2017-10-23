@@ -26,7 +26,7 @@
     }
 
     function filesize(bytes, other) {
-        const si = other | false;
+        const si = other | true;
         const thresh = si ? 1000 : 1024;
         if (Math.abs(bytes) < thresh) {
             return bytes + ' B';
