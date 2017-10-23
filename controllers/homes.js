@@ -12,8 +12,9 @@ module.exports = {
             .orderBy(r.desc(function (row) {
                 return row('scan')('date');
             }))
-            .limit(5) //ONLY SHOW LAST 10 SCANS!!
+            .limit(10) //ONLY SHOW LAST 10 SCANS!!
             .then(instances => {
+
                 return res.render('homes/show', {instances});
             })
             .catch(err => {

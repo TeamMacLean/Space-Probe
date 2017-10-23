@@ -19,7 +19,6 @@ Scan.pre('save', function () {
 //     return this;
 // });
 
-
 module.exports = Scan;
 
 const ReadsFolder = require('./readsFolder');
