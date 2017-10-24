@@ -35,7 +35,7 @@
     }).map((rf)=>{ %>
     <tr>
         <td><a href="/reads/<%- rf.name %>"><%- rf.name %></a></td>
-        <td><%- rf.sizeHuman %></td>
+        <td><%- filesize(rf.size) %></td>
         <td>
             <%- rf.sizeDifferenceHuman %>
         </td>
