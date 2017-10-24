@@ -10,10 +10,6 @@ const ScratchFolder = thinky.createModel("ScratchFolder", {
     xfiles: [type.object()]
 });
 
-ScratchFolder.pre('save', function () {
-    this.sizeHuman = filesize(this.size);
-});
-
 module.exports = ScratchFolder;
 
 const Scan = require('./scan');

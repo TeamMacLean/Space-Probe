@@ -10,9 +10,6 @@ const ReadsFolder = thinky.createModel("ReadsFolder", {
     size: type.number().required()
 });
 
-ReadsFolder.pre('save', function () {
-    this.sizeHuman = filesize(this.size);
-});
 
 module.exports = ReadsFolder;
 

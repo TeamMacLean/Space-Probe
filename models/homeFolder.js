@@ -7,14 +7,10 @@ const HomeFolder = thinky.createModel("HomeFolder", {
     scanID: type.string().required(),
     name: type.string().required(),
     size: type.number().required(),
-    sizeHuman: type.string().required(),
     xfiles: [type.object()]
 });
 
 
-HomeFolder.pre('save', function () {
-    this.sizeHuman = filesize(this.size);
-});
 
 // HomeFolder.defineStatic('getChanges',function(){
 //
