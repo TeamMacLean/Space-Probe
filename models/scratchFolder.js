@@ -1,6 +1,5 @@
 const thinky = require('../lib/thinky.js');
 const type = thinky.type;
-const filesize = require('../lib/filesize');
 
 const ScratchFolder = thinky.createModel("ScratchFolder", {
     id: type.string(),
