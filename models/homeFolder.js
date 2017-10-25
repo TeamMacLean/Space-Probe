@@ -7,7 +7,7 @@ const HomeFolder = thinky.createModel("HomeFolder", {
     scanID: type.string().required(),
     name: type.string().required(),
     size: type.number().required(),
-    xfiles: [type.object()]
+    xfiles: type.number()
 });
 
 

@@ -6,7 +6,7 @@ const ScratchFolder = thinky.createModel("ScratchFolder", {
     scanID: type.string().required(),
     name: type.string().required(),
     size: type.number().required(),
-    xfiles: [type.object()]
+    xfiles: type.number()
 });
 
 module.exports = ScratchFolder;
