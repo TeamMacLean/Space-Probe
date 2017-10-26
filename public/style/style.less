@@ -1,11 +1,21 @@
 body {
   padding-top: 5rem;
 }
-.center{
+
+.center {
   text-align: center;
 }
 
+@primray: #E95567;
 
 a {
-  color: #00B7FF;
+  //color: #00B7FF;
+  color: @primray;
+  &:hover {
+    color: darken(@primray, 20%);
+  }
 }
+
+//.navbar-dark .navbar-brand  {
+//    color: @primray;
+//}
