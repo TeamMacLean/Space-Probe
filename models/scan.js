@@ -21,12 +21,13 @@ Scan.pre('save', function () {
 
 module.exports = Scan;
 
-const ReadsFolder = require('./readsFolder');
-const ScratchFolder = require('./scratchFolder');
-const HomeFolder = require('./homeFolder');
+// const ReadsFolder = require('./readsFolder');
+// const ScratchFolder = require('./scratchFolder');
+// const HomeFolder = require('./homeFolder');
+const Location = require('./location');
 
-Scan.hasMany(ReadsFolder, 'readsFolders', 'id', 'scanID');
-Scan.hasMany(ScratchFolder, 'scratchFolders', 'id', 'scanID');
-Scan.hasMany(HomeFolder, 'homeFolders', 'id', 'scanID');
+Scan.hasMany(Location, 'locations', 'id', 'scanID');
+// Scan.hasMany(ScratchFolder, 'scratchFolders', 'id', 'scanID');
+// Scan.hasMany(HomeFolder, 'homeFolders', 'id', 'scanID');
 
 Scan.ensureIndex("date");

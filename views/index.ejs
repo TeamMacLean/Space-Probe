@@ -6,16 +6,10 @@
     <% } else { %>
 
     <h2 class="center mb-4"><%- scan.dateHuman %></h2>
-    <% const readsFolders = scan.readsFolders; %>
-    <% include displayReads.ejs %>
 
-
-    <% const scratchFolders = scan.scratchFolders; %>
-    <% include displayScratches.ejs %>
-
-
-    <% const homeFolders = scan.homeFolders; %>
-    <% include displayHomes.ejs %>
+    <% scan.locations.map(location=>{ %>
+    <% include _locationTable.ejs %>
+    <% }) %>
 
     <% } %>
 </div><!-- /.container -->

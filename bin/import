@@ -2,9 +2,11 @@
 
 const fs = require('fs');
 const Scan = require('../models/scan');
-const Home = require('../models/homeFolder');
-const Scratch = require('../models/scratchFolder');
-const Read = require('../models/readsFolder');
+// const Home = require('../models/homeFolder');
+// const Scratch = require('../models/scratchFolder');
+// const Read = require('../models/readsFolder');
+const Location = require('../models/location');
+const Folder = require('../models/folder');
 const moment = require('moment');
 
 if (process.argv.length < 3) {
@@ -38,32 +40,35 @@ fs.readFile(process.argv[2], function read(err, data) {
                     .save()
                     .then(savedScan => {
 
-                        // console.log(savedScan.dateHuman, dateHuman, savedScan.dateHuman === dateHuman);
-                        return Promise.all(
-                            [
-                                Promise.all(
-                                    imported.home.map(h => {
-                                        h.scanID = savedScan.id;
-                                        return new Home(h).save();
-                                    })
-                                ),
+                        return new Promise((good, bad) => {
 
-                                Promise.all(
-                                    imported.scratch.map(h => {
-                                        h.scanID = savedScan.id;
-                                        return new Scratch(h).save();
-                                    })
-                                ),
+                            imported.locations.map(location => {
+                                console.log('location', location.name);
+                                new Location({
+                                    name: location.name,
+                                    scanID: savedScan.id
+                                }).save()
+                                    .then(savedLocation => {
 
-                                Promise.all(
-                                    imported.reads.map(h => {
-                                        h.scanID = savedScan.id;
-                                        return new Read(h).save();
+                                        Promise.all(
+                                            location.folders.map(folder => {
+                                                console.log('folder', folder.name);
+                                                return new Folder({
+                                                    name: folder.name,
+                                                    locationID: savedLocation.id,
+                                                    size: folder.size,
+                                                    xfiles: folder.xfiles ? folder.xfiles : 0
+                                                }).save()
+                                            })
+                                        )
+                                            .then(() => good())
+                                            .catch(err => bad(err));
                                     })
-                                )
-                            ]
-                        )
+                                    .catch(err => bad(err));
 
+
+                            })
+                        })
                     })
                     .then(savedModels => {
                         console.log('DONE!');
@@ -105,11 +110,3 @@ fs.readFile(process.argv[2], function read(err, data) {
 
 
 });
-
-// require('./')(process.argv[2], function (err, size) {
-//     if (err) {
-//         console.error(err)
-//         return process.exit(-1)
-//     }
-//     console.log(size, process.argv[2])
-// })
