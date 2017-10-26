@@ -4,56 +4,57 @@
 const Scan = require('../models/scan');
 const filesize = require('../lib/filesize');
 const r = require('../lib/thinky').r;
-//
-// /**
-//  *
-//  * @param current
-//  * @param previous
-//  */
-// function compareScans(current, previous) {
-//
-//
-//     if (!previous) {
-//         console.log('NO PREVIOUS');
-//         return current;
-//     }
-//
-//     function buildComparison(currentFolders, previousFolders) {
-//
-//         return currentFolders.map(cf => {
-//
-//             cf.sizePrevious = 0;
-//             cf.sizeHumanPrevious = 0;
-//             cf.sizeDifference = 0;
-//             cf.sizeDifferenceHuman = '0';
-//
-//
-//             const pFound = previousFolders.filter(pf => {
-//                 return pf.name === cf.name;
-//             });
-//
-//             if (pFound && pFound.length) {
-//                 cf.sizePrevious = pFound[0].size;
-//                 cf.sizeHumanPrevious = pFound[0].sizeHuman;
-//                 cf.sizeDifference = cf.size - pFound[0].size;
-//                 if (Math.abs(cf.sizeDifference) !== 0) {
-//                     cf.sizeDifferenceHuman = `${cf.sizeDifference > 0 ? '+' : '-'}  ${filesize(Math.abs(cf.sizeDifference))}`
-//                 }
-//             }
-//
-//             return cf;
-//
-//         })
-//
-//     }
-//
-//     current.readsFolders = buildComparison(current.readsFolders, previous.readsFolders);
-//     current.scratchFolders = buildComparison(current.scratchFolders, previous.scratchFolders);
-//     current.homeFolders = buildComparison(current.homeFolders, previous.homeFolders);
-//
-//     return current;
-//
-// }
+
+/**
+ *
+ * @param current
+ * @param previous
+ */
+function compareScans(current, previous) {
+
+
+    if (!previous) {
+        console.log('NO PREVIOUS');
+        return current;
+    }
+
+    function buildComparison(currentFolder, previousFolder) {
+
+
+        currentFolder.sizePrevious = 0;
+        currentFolder.sizeHumanPrevious = 0;
+        currentFolder.sizeDifference = 0;
+        currentFolder.sizeDifferenceHuman = '0';
+
+
+        currentFolder.sizePrevious = previousFolder.size;
+        currentFolder.sizeHumanPrevious = previousFolder.sizeHuman;
+        currentFolder.sizeDifference = currentFolder.size - previousFolder.size;
+        if (Math.abs(currentFolder.sizeDifference) !== 0) {
+            currentFolder.sizeDifferenceHuman = `${currentFolder.sizeDifference > 0 ? '+' : '-'} ${filesize(Math.abs(currentFolder.sizeDifference))}`
+        }
+
+        return currentFolder;
+
+    }
+
+
+    current.locations.map((location, i) => {
+        const pLocation = previous.locations.filter(pl => pl.name === location.name);
+        if (pLocation && pLocation.length) {
+            location.folders.map((folder, ii) => {
+                const pFolder = pLocation[0].folders.filter(pf => pf.name === folder.name);
+                if (pFolder && pFolder.length) {
+                    current.locations[i].folders[ii] = buildComparison(folder, pFolder[0])
+                }
+            })
+        }
+    });
+
+    console.log(current);
+    return current;
+
+}
 
 module.exports = {
     index: function (req, res, next) {
@@ -64,8 +65,8 @@ module.exports = {
 
                 // console.log(scans[0], scans[1]);
 
-                // const scanWithComparison = compareScans(scans[0], scans[1]);
-                return res.render('index', {scan: scans[0]});
+                const scanWithComparison = compareScans(scans[0], scans[1]);
+                return res.render('index', {scan: scanWithComparison});
             });
     }
 };
