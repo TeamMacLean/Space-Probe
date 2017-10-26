@@ -1,0 +1,99 @@
+<div class="container">
+    <canvas id="myChart"></canvas>
+</div>
+
+<style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
+
+<script>
+
+    var instances = <%- JSON.stringify(instances) %>;
+    instances = instances.reverse();
+
+    /**
+     * @return {number}
+     */
+    function BytesToTB(bytes) {
+        return bytes / Math.pow(1024, 4)
+    }
+
+    /**
+     * @return {number}
+     */
+    function TBToBytes(bytes) {
+        return bytes * Math.pow(1024, 4)
+    }
+
+    function filesize(bytes, other) {
+        const si = other | true;
+        const thresh = si ? 1000 : 1024;
+        if (Math.abs(bytes) < thresh) {
+            return bytes + ' B';
+        }
+        const units = si
+            ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+            : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+        let u = -1;
+        do {
+            bytes /= thresh;
+            ++u;
+        } while (Math.abs(bytes) >= thresh && u < units.length - 1);
+        return bytes.toFixed(1) + ' ' + units[u];
+    }
+
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: instances.map(i => moment(new Date(i.location.scan.date)).format('DD/MM/YY HH:MM')),
+            datasets: [{
+                label: 'Size (TB)',
+                data: instances.map(i => BytesToTB(i.size)),
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+//                    'rgba(54, 162, 235, 0.2)',
+//                    'rgba(255, 206, 86, 0.2)',
+//                    'rgba(75, 192, 192, 0.2)',
+//                    'rgba(153, 102, 255, 0.2)',
+//                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+//                    'rgba(54, 162, 235, 1)',
+//                    'rgba(255, 206, 86, 1)',
+//                    'rgba(75, 192, 192, 1)',
+//                    'rgba(153, 102, 255, 1)',
+//                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        return filesize(TBToBytes(tooltipItem.yLabel));
+                    }
+                }
+            },
+            responsive: true,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        stepSize: 1,
+                        max: 3,
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
