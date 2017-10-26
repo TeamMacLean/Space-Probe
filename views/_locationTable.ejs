@@ -38,10 +38,10 @@
         <td><a href="/<%- location.name %>/<%- folder.name %>"><%- folder.name %></a></td>
         <td><%- filesize(folder.size) %></td>
         <td>
-            <%- folder.sizeDifferenceHuman %>
+            <%- folder.sizeDifferenceHuman ? folder.sizeDifferenceHuman : '0' %>
         </td>
         <td>
-            <%- folder.xfiles && folder.xfiles !== -1 ? folder.xfiles : '' %>
+            <%- folder.xfiles && folder.xfiles !== -1 ? folder.xfiles : '0' %>
         </td>
     </tr>
     <% }) %>
