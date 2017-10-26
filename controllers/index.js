@@ -51,7 +51,13 @@ function compareScans(current, previous) {
         }
     });
 
-    console.log(current);
+
+    current.locations = current.locations.sort(function (a, b) {
+        const textA = a.name.toUpperCase();
+        const textB = b.name.toUpperCase();
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+    });
+
     return current;
 
 }
@@ -66,6 +72,9 @@ module.exports = {
                 // console.log(scans[0], scans[1]);
 
                 const scanWithComparison = compareScans(scans[0], scans[1]);
+                //SORT BY NAME
+
+
                 return res.render('index', {scan: scanWithComparison});
             });
     }
