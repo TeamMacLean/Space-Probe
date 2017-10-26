@@ -14,7 +14,7 @@
     //FROM 0GB to 3000GB
 
     var instances = <%- JSON.stringify(instances) %>;
-        instances = instances.reverse();
+    instances = instances.reverse();
 
 
     /**
@@ -50,7 +50,7 @@
             })
         ],
         labels: instances.map(function (i) {
-            return moment(new Date(i.scan.date)).format('DD/MM/YY HH:MM');
+            return moment(new Date(i.location.scan.date)).format('DD/MM/YY HH:MM');
         })
     }, {
         chartPadding: {
@@ -73,7 +73,7 @@
                     textAnchor: 'middle'
                 },
                 axisY: {
-                    axisTitle: 'Size (TiB)',
+                    axisTitle: 'Size (TB)',
                     axisClass: 'ct-axis-title',
                     offset: {
                         x: 0,

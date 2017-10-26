@@ -14,34 +14,35 @@
     } while (Math.abs(bytes) >= thresh && u < units.length - 1);
     return bytes.toFixed(1) + ' ' + units[u];
 } %>
-<% const total = readsFolders.reduce((total, current) => {
+<% const total = location.folders.reduce((total, current) => {
     return total + current.size
 }, 0)
 %>
 
-<h2 class="center mt-5 mb-2">Reads <%- filesize(total) %></h2>
+
+<h2 class="center mt-5 mb-2"><%- location.name %> <%- filesize(total) %></h2>
 <table class="table">
     <thead>
     <tr>
         <th>Name</th>
         <th>Size</th>
         <th>Change</th>
-        <!--<th>xFiles</th>-->
+        <th>xFiles</th>
     </tr>
     </thead>
     <tbody>
-    <% readsFolders.sort(function (a, b) {
+    <% location.folders.sort(function (a, b) {
         return b.size - a.size
-    }).map((rf)=>{ %>
+    }).map((folder)=>{ %>
     <tr>
-        <td><a href="/reads/<%- rf.name %>"><%- rf.name %></a></td>
-        <td><%- filesize(rf.size) %></td>
+        <td><a href="/<%- location.name %>/<%- folder.name %>"><%- folder.name %></a></td>
+        <td><%- filesize(folder.size) %></td>
         <td>
-            <%- rf.sizeDifferenceHuman %>
+            <%- folder.sizeDifferenceHuman %>
         </td>
-        <!--<td>-->
-        <!--<%- rf.xfiles ? rf.xfiles : 'n/a' %>-->
-        <!--</td>-->
+        <td>
+            <%- folder.xfiles && folder.xfiles !== -1 ? folder.xfiles : '' %>
+        </td>
     </tr>
     <% }) %>
     </tbody>

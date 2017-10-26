@@ -3,11 +3,19 @@
 const scanner = require('../lib/scanner');
 const fs = require('fs');
 
-scanner.all()
-    .then((folders) => {
-        const ts = Math.round((new Date()).getTime() / 1000);
+scanner.scan()
+    .then((locations) => {
+        const ts = Math.round((new Date()).getTime());
+
+        const toWrite = {
+            scan:{
+                date:ts
+            },
+            locations:locations
+        };
+
         const outputPath = `./scan-${ts}.json`;
-        fs.writeFile(outputPath, JSON.stringify(folders, null, 2), function (err) {
+        fs.writeFile(outputPath, JSON.stringify(toWrite, null, 2), function (err) {
             if (err) {
                 console.log('failed to save scan results', err);
                 // process.exit();
