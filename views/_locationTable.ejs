@@ -21,7 +21,7 @@
 
 
 <h2 class="center mt-5 mb-2"><%- location.name %> <%- filesize(total) %></h2>
-<table class="table">
+<table class="table" data-sortable id="table-<%- location.name %>">
     <thead>
     <tr>
         <th>Name</th>
@@ -35,15 +35,17 @@
         return b.size - a.size
     }).map((folder)=>{ %>
     <tr>
-        <td><a href="/<%- location.name %>/<%- folder.name %>"><%- folder.name %></a></td>
-        <td><%- filesize(folder.size) %></td>
-        <td>
+        <td><a href="/<%- location.name %>/<%- folder.name %>"><%- folder.name %></a>
+        </td>
+        <td data-value="<%- folder.size %>"><%- filesize(folder.size) %></td>
+        <td data-value="<%- folder.sizeDifferenceHuman %>">
             <%- folder.sizeDifferenceHuman ? folder.sizeDifferenceHuman : '0' %>
         </td>
-        <td>
+        <td data-value="<%- folder.xfiles %>">
             <%- folder.xfiles && folder.xfiles !== -1 ? folder.xfiles : '0' %>
         </td>
     </tr>
     <% }) %>
     </tbody>
 </table>
+
