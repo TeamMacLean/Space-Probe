@@ -1,7 +1,10 @@
 <% include ../head.ejs %>
 <h1 class="center"><%- location.name %></h1>
 
-<%include ../_locationTable.ejs%>
+<div class="container">
+    <% include ../_locationTable.ejs %>
+    <% include ../_graph2.ejs %>
+</div>
 
 
 <% include ../foot.ejs %>

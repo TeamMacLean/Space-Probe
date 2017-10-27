@@ -14,7 +14,24 @@ module.exports = {
             }))
             .then(instances => {
                 if (instances && instances.length) {
-                    return res.render('locations/show', {location: instances[0]});
+
+                    const fakeInstances = instances.map(i => {
+
+                        return {
+
+                            location: i,
+                            size: i.folders.reduce((total, current) => {
+                                return total + current.size
+                            }, 0)
+
+                        }
+
+                    });
+
+                    console.log(fakeInstances);
+
+
+                    return res.render('locations/show', {location: instances[0], instances: fakeInstances});
                 } else {
                     return next();
                 }
