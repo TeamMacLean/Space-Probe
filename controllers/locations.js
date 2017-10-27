@@ -1,6 +1,6 @@
 const Location = require('../models/location');
 const r = require('../lib/thinky').r;
-
+const compare = require('../lib/compare');
 module.exports = {
 
     show: function (req, res, next) {
@@ -16,22 +16,18 @@ module.exports = {
                 if (instances && instances.length) {
 
                     const fakeInstances = instances.map(i => {
-
                         return {
-
                             location: i,
                             size: i.folders.reduce((total, current) => {
                                 return total + current.size
                             }, 0)
-
                         }
-
                     });
 
-                    console.log(fakeInstances);
 
 
-                    return res.render('locations/show', {location: instances[0], instances: fakeInstances});
+                    const scanWithComparison = compare.locations(instances[0], instances[1]);
+                    return res.render('locations/show', {location: scanWithComparison, instances: fakeInstances});
                 } else {
                     return next();
                 }
