@@ -1,5 +1,6 @@
 <div class="container">
     <canvas id="myChart"></canvas>
+    <button onClick="toggleScale();" class="btn btn-primary btn-sm">Toggle Scale</button>
 </div>
 
 <style>
@@ -12,6 +13,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
+
 
 <script>
 
@@ -109,4 +111,23 @@
             }
         }
     });
+
+    var resetScale = myChart.config.options.scales.yAxes[0].ticks.max;
+
+    function toggleScale() {
+
+
+        if (myChart.config.options.scales.yAxes[0].ticks.max === resetScale) {
+            var highest = myChart.data.datasets[0].data.reduce(function (a, b) {
+                return Math.max(a, b);
+            });
+            myChart.config.options.scales.yAxes[0].ticks.max = Math.ceil(highest)
+        } else {
+            myChart.config.options.scales.yAxes[0].ticks.max = resetScale;
+        }
+
+
+        myChart.update();
+
+    }
 </script>
