@@ -121,7 +121,7 @@
             var highest = myChart.data.datasets[0].data.reduce(function (a, b) {
                 return Math.max(a, b);
             });
-            myChart.config.options.scales.yAxes[0].ticks.max = Math.ceil(highest) + 1
+            myChart.config.options.scales.yAxes[0].ticks.max = Math.ceil(highest)
         } else {
             myChart.config.options.scales.yAxes[0].ticks.max = resetScale;
         }
