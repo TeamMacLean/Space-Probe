@@ -11,7 +11,7 @@ module.exports = {
             .filter({name: req.params.folder, location: {name: req.params.location}})
             // .dateHumanShort()
             .orderBy(r.desc(function (row) {
-                return row('scan')('date');
+                return row('location')('scan')('date');
             }))
             .limit(10) //ONLY SHOW LAST 10 SCANS!!
             .then(instances => {
