@@ -54,7 +54,7 @@
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: instances.map(i => moment(new Date(i.location.scan.date)).format('DD/MM/YY HH:MM')),
+            labels: instances.map(i => moment(new Date(i.location.scan.date)).format('MMMM Do YYYY, h:mm a')),
             datasets: [{
                 label: 'Size (TB)',
                 data: instances.map(i => BytesToTB(i.size)),
@@ -81,7 +81,7 @@
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Date (DD:MM:YY HH:MM)'
+                        labelString: 'Date (DD:MM:YY h:mm a)'
                     }
                 }],
                 yAxes: [{

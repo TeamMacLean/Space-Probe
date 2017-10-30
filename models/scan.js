@@ -10,7 +10,7 @@ const Scan = thinky.createModel("Scan", {
 });
 
 Scan.pre('save', function () {
-    this.dateHuman = moment(this.date).format('MMMM Do YYYY, h:mm:ss a');
+    this.dateHuman = moment(this.date).format('MMMM Do YYYY, h:mm a');
 });
 
 
@@ -20,6 +20,11 @@ Scan.pre('save', function () {
 // });
 
 module.exports = Scan;
+
+Scan.define('getDateHuman', function () {
+    // return moment(this.date).format('DDMMYY HH:MM')
+    return moment(this.date).format('MMMM Do YYYY, h:mm:ss a');
+});
 
 // const ReadsFolder = require('./readsFolder');
 // const ScratchFolder = require('./scratchFolder');
