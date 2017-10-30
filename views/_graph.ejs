@@ -1,27 +1,34 @@
 <div class="container">
-    <div id="chart" class="ct-chart ct-perfect-fourth"></div>
+    <canvas id="myChart"></canvas>
+    <button onClick="toggleScale();" class="btn btn-primary btn-sm">Toggle Scale</button>
 </div>
-<link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
-<link rel="stylesheet"
-      href="https://rawgit.com/Globegitter/chartist-plugin-tooltip/master/dist/chartist-plugin-tooltip.css">
-<script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
 
-<script src="https://unpkg.com/chartist-plugin-tooltips@0.0.17/dist/chartist-plugin-tooltip.js"></script>
-<script src="https://rawgit.com/alexstanbury/chartist-plugin-axistitle/master/dist/chartist-plugin-axistitle.min.js"></script>
+<style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
+
+
 <script>
-
-    //FROM 0GB to 3000GB
 
     var instances = <%- JSON.stringify(instances) %>;
     instances = instances.reverse();
-
 
     /**
      * @return {number}
      */
     function BytesToTB(bytes) {
         return bytes / Math.pow(1024, 4)
+    }
+
+    /**
+     * @return {number}
+     */
+    function TBToBytes(bytes) {
+        return bytes * Math.pow(1024, 4)
     }
 
     function filesize(bytes, other) {
@@ -41,80 +48,96 @@
         return bytes.toFixed(1) + ' ' + units[u];
     }
 
-    var chart = new Chartist.Line('#chart', {
-//        labels: labels,
-        series: [
-            instances.map(function (i) {
-                return {meta: filesize(i.size), value: BytesToTB(i.size)};
-//                return i.size;
-            })
-        ],
-        labels: instances.map(function (i) {
-            return moment(new Date(i.location.scan.date)).format('DD/MM/YY HH:MM');
-        })
-    }, {
-        chartPadding: {
-            top: 20,
-            right: 0,
-            bottom: 30,
-            left: 0
-        },
-        plugins: [
-            Chartist.plugins.tooltip({}),
-            Chartist.plugins.ctAxisTitle({
-                axisX: {
-                    axisTitle: 'Date (DD/MM/YY HH:MM)',
+    function setupGraph() {
 
-                    axisClass: 'ct-axis-title',
-                    offset: {
-                        x: 0,
-                        y: 50
-                    },
-                    textAnchor: 'middle'
+
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: instances.map(i => moment(new Date(i.location.scan.date)).format('DD/MM/YY HH:MM')),
+                datasets: [{
+                    label: 'Size (TB)',
+                    data: instances.map(i => BytesToTB(i.size)),
+                    backgroundColor: [
+                        'rgba(233,85,103, 0.2)',
+//                    'rgba(255, 99, 132, 0.2)',
+//                    'rgba(54, 162, 235, 0.2)',
+//                    'rgba(255, 206, 86, 0.2)',
+//                    'rgba(75, 192, 192, 0.2)',
+//                    'rgba(153, 102, 255, 0.2)',
+//                    'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(233,85,103, 1)',
+//                    'rgba(255,99,132,1)',
+//                    'rgba(54, 162, 235, 1)',
+//                    'rgba(255, 206, 86, 1)',
+//                    'rgba(75, 192, 192, 1)',
+//                    'rgba(153, 102, 255, 1)',
+//                    'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltipItem, data) {
+                            return filesize(TBToBytes(tooltipItem.yLabel));
+                        }
+                    }
                 },
-                axisY: {
-                    axisTitle: 'Size (TB)',
-                    axisClass: 'ct-axis-title',
-                    offset: {
-                        x: 0,
-                        y: 0
-                    },
-                    textAnchor: 'middle',
-                    flipTitle: false
+                responsive: true,
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Date (DD:MM:YY HH:MM)'
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Size (TB)'
+                        },
+                        ticks: {
+                            stepSize: 1,
+                            max: 3,
+                            beginAtZero: true
+                        }
+                    }]
                 }
-            })
-        ],
-        axisY: {
-            type: Chartist.FixedScaleAxis,
-//            divisor: 3
-            high: 3,
-            low: 0,
-//            divisor: 4,
-            ticks: [0, 1, 2, 3],
-//            onlyInteger: true,
-//            type: Chartist.FixedScaleAxis,
-//            ticks: [0, 1000, 2000, 3000],
-//            low: 0
-        },
+            }
+        });
 
-//        fullWidth: true,
-        showArea: true,
-//        chartPadding: {
-//            right: 40,
-//            left: 40
-//        },
-//        axisX: {
-//            type: Chartist.FixedScaleAxis,
-//            divisor: 2,
-//            labelInterpolationFnc: function (value) {
-//                console.log(value);
-//                return moment(value).format('MMM D');
-//            }
-//        },
-//        axisY: {
-//            showLabel: false,
-//            showGrid: false
-//        }
-    });
+        var resetScale = myChart.config.options.scales.yAxes[0].ticks.max;
 
+        function toggleScale() {
+
+
+            if (myChart.config.options.scales.yAxes[0].ticks.max === resetScale) {
+                var highest = myChart.data.datasets[0].data.reduce(function (a, b) {
+                    return Math.max(a, b);
+                });
+                myChart.config.options.scales.yAxes[0].ticks.max = Math.ceil(highest)
+            } else {
+                myChart.config.options.scales.yAxes[0].ticks.max = resetScale;
+            }
+
+
+            myChart.update();
+
+        }
+    }
+
+
+    var fileInterval = setInterval(function () {
+        if (Chart) {
+            // do something
+            setupGraph();
+            clearInterval(fileInterval); // clear interval
+        }
+    }, 100); // check every 100ms
 </script>

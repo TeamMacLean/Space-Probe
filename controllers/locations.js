@@ -13,9 +13,13 @@ module.exports = {
                 return row('scan')('date');
             }))
             .then(instances => {
+                console.log(instances.length);
                 if (instances && instances.length) {
 
-                    const instances = instances.map(i => {
+
+
+
+                    const fakeInstances = instances.map(i => {
                         return {
                             location: i,
                             size: i.folders.reduce((total, current) => {
@@ -25,7 +29,7 @@ module.exports = {
                     });
 
                     const scanWithComparison = compare.locations(instances[0], instances[1]);
-                    return res.render('locations/show', {location: scanWithComparison, instances: instances});
+                    return res.render('locations/show', {location: scanWithComparison, instances: fakeInstances});
                 } else {
                     return next();
                 }
