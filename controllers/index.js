@@ -9,17 +9,16 @@ const compare = require('../lib/compare');
 
 module.exports = {
     index: function (req, res, next) {
+
+        if(req.query.scanID){
+            Scan.get(req.query.scanID)
+        }
+
         Scan.orderBy({index: r.desc("date")})
             .getJoin({locations: {folders: true}})
             .run()
             .then(scans => {
-
-                // console.log(scans[0], scans[1]);
-
                 const scanWithComparison = compare.scan(scans[0], scans[1]);
-                //SORT BY NAME
-
-
                 return res.render('index', {scan: scanWithComparison, instances: scans});
             });
     }

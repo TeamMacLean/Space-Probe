@@ -24,7 +24,6 @@ module.exports = {
                         }
                     });
 
-                    console.log(fakeInstances.length);
 
                     const scanWithComparison = compare.locations(instances[0], instances[1]);
                     return res.render('locations/show', {location: scanWithComparison, instances: fakeInstances});

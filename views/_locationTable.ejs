@@ -20,7 +20,8 @@
 %>
 
 
-<h2 class="center mt-5 mb-2"><a href="/<%- location.name %>"><%- location.name %></a> <%- filesize(total) %></h2>
+<h2 class="center mt-5 mb-2"><a href="/<%- location.name %>"><%- location.name %></a> <%- filesize(total) %>
+    (<%- total %></h2>
 <table class="table" data-sortable id="table-<%- location.name %>">
     <thead>
     <tr>
@@ -38,7 +39,7 @@
         <td><a href="/<%- location.name %>/<%- folder.name %>"><%- folder.name %></a>
         </td>
         <td data-value="<%- folder.size %>"><%- filesize(folder.size) %></td>
-        <td data-value="<%- folder.sizeDifferenceHuman %>">
+        <td data-value="<%- folder.sizeDifferenceHuman ? folder.sizeDifferenceHuman : '0' %>">
             <%- folder.sizeDifferenceHuman ? folder.sizeDifferenceHuman : '0' %>
         </td>
         <td data-value="<%- folder.xfiles %>">
