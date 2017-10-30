@@ -5,7 +5,7 @@
     <h1>No scans have been preformed yet.</h1>
     <% } else { %>
 
-    <h2 class="center mb-4"><%- scan.dateHuman %></h2>
+    <h2 class="center mb-4"><%- scan.getDateHuman() %></h2>
 
     <% if(instances[1]){ %>
     <p class="center">showing changes since <%- instances[1].getDateHuman() %></p>

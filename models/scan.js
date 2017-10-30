@@ -16,7 +16,7 @@ Scan.pre('save', function () {
 module.exports = Scan;
 
 Scan.define('getDateHuman', function () {
-    return moment(this.date).format('MMMM Do YYYY, HH:mm');
+    return moment(this.date).format('DD/MM/YY, HH:mm');
 });
 
 const Location = require('./location');
