@@ -22,6 +22,5 @@
     "thinky": "^2.3.9",
     "uuid": "latest"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
