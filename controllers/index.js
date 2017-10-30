@@ -20,7 +20,7 @@ module.exports = {
                 //SORT BY NAME
 
 
-                return res.render('index', {scan: scanWithComparison});
+                return res.render('index', {scan: scanWithComparison, instances: scans});
             });
     }
 };

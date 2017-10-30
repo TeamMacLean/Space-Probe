@@ -7,6 +7,10 @@
 
     <h2 class="center mb-4"><%- scan.dateHuman %></h2>
 
+    <% if(instances[1]){ %>
+    <p class="center">showing changes since <%- instances[1].dateHuman %></p>
+    <% } %>
+
     <% scan.locations.map(location=>{ %>
     <% include _locationTable.ejs %>
     <% }) %>

@@ -16,12 +16,15 @@ module.exports = {
                 if (instances && instances.length) {
                     const fakeInstances = instances.map(i => {
                         return {
+                            scan: i.scan,
                             location: i,
                             size: i.folders.reduce((total, current) => {
                                 return total + current.size
                             }, 0)
                         }
                     });
+
+                    console.log(fakeInstances.length);
 
                     const scanWithComparison = compare.locations(instances[0], instances[1]);
                     return res.render('locations/show', {location: scanWithComparison, instances: fakeInstances});
