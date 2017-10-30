@@ -13,12 +13,7 @@ module.exports = {
                 return row('scan')('date');
             }))
             .then(instances => {
-                console.log(instances.length);
                 if (instances && instances.length) {
-
-
-
-
                     const fakeInstances = instances.map(i => {
                         return {
                             location: i,
