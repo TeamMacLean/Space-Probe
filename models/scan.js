@@ -10,29 +10,17 @@ const Scan = thinky.createModel("Scan", {
 });
 
 Scan.pre('save', function () {
-    this.dateHuman = moment(this.date).format('MMMM Do YYYY, h:mm a');
+    this.dateHuman = moment(this.date).format('MMMM Do YYYY, HH:mm');
 });
-
-
-// Scan.defineStatic('dateHumanShort', function () {
-//     this.dateHumanShort = moment(this.date).format('DDMMYYYY');
-//     return this;
-// });
 
 module.exports = Scan;
 
 Scan.define('getDateHuman', function () {
-    // return moment(this.date).format('DDMMYY HH:MM')
-    return moment(this.date).format('MMMM Do YYYY, h:mm:ss a');
+    return moment(this.date).format('MMMM Do YYYY, HH:mm');
 });
 
-// const ReadsFolder = require('./readsFolder');
-// const ScratchFolder = require('./scratchFolder');
-// const HomeFolder = require('./homeFolder');
 const Location = require('./location');
 
 Scan.hasMany(Location, 'locations', 'id', 'scanID');
-// Scan.hasMany(ScratchFolder, 'scratchFolders', 'id', 'scanID');
-// Scan.hasMany(HomeFolder, 'homeFolders', 'id', 'scanID');
 
 Scan.ensureIndex("date");
