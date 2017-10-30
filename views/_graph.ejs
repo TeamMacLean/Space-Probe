@@ -114,8 +114,12 @@
 
         var resetScale = myChart.config.options.scales.yAxes[0].ticks.max;
 
-        function toggleScale() {
 
+    }
+
+    function toggleScale() {
+
+        if (myChart && resetScale) {
 
             if (myChart.config.options.scales.yAxes[0].ticks.max === resetScale) {
                 var highest = myChart.data.datasets[0].data.reduce(function (a, b) {
@@ -128,10 +132,9 @@
 
 
             myChart.update();
-
         }
-    }
 
+    }
 
     var fileInterval = setInterval(function () {
         if (Chart) {
