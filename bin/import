@@ -2,9 +2,6 @@
 
 const fs = require('fs');
 const Scan = require('../models/scan');
-// const Home = require('../models/homeFolder');
-// const Scratch = require('../models/scratchFolder');
-// const Read = require('../models/readsFolder');
 const Location = require('../models/location');
 const Folder = require('../models/folder');
 const moment = require('moment');
