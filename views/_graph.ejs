@@ -50,70 +50,64 @@
         return bytes.toFixed(1) + ' ' + units[u];
     }
 
-    var ctx = document.getElementById("myChart").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: instances.map(i => moment(new Date(i.location.scan.date)).format('DD/MM/YY, HH:mm')),
-            datasets: [{
-                label: 'Size (TB)',
-                data: instances.map(i => BytesToTB(i.size)),
-                backgroundColor: [
-                    'rgba(233,85,103, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(233,85,103, 1)',
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            tooltips: {
-                callbacks: {
-                    label: function (tooltipItem, data) {
-                        return filesize(TBToBytes(tooltipItem.yLabel));
-                    }
-                }
-            },
-            responsive: true,
-            scales: {
-                xAxes: [{
-                    display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Date (DD/MM/YY, HH:mm)'
-                    }
-                }],
-                yAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Size (TB)'
-                    },
-                    ticks: {
-                        stepSize: 1,
-                        max: 3,
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
+    var toggled = false;
 
-    var resetScale = myChart.config.options.scales.yAxes[0].ticks.max;
-    var resetStepSize = myChart.config.options.scales.yAxes[0].ticks.stepSize;
+    function buildChart() {
+        return new Chart(document.getElementById("myChart").getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: instances.map(i => moment(new Date(i.location.scan.date)).format('DD/MM/YY, HH:mm')),
+                datasets: [{
+                    label: 'Size (TB)',
+                    data: instances.map(i => BytesToTB(i.size)),
+                    backgroundColor: [
+                        'rgba(233,85,103, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(233,85,103, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltipItem, data) {
+                            return filesize(TBToBytes(tooltipItem.yLabel));
+                        }
+                    }
+                },
+                responsive: true,
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Date (DD/MM/YY, HH:mm)'
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Size (TB)'
+                        },
+                        ticks: {
+                            stepSize: toggled ? undefined : 3,
+                            max: toggled ? undefined : 1,
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+
 
     function toggleScale() {
-
-
-        if (myChart.config.options.scales.yAxes[0].ticks.max === resetScale) {
-            myChart.config.options.scales.yAxes[0].ticks.max = undefined;
-            myChart.config.options.scales.yAxes[0].ticks.stepSize = undefined;
-        } else {
-            myChart.config.options.scales.yAxes[0].ticks.max = resetScale;
-            myChart.config.options.scales.yAxes[0].ticks.stepSize = resetStepSize;
-        }
-
-        myChart.update();
+        toggled = !toggled;
+        buildChart();
 
     }
+
+    buildChart();
 </script>
