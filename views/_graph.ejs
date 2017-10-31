@@ -100,19 +100,18 @@
     });
 
     var resetScale = myChart.config.options.scales.yAxes[0].ticks.max;
+    var resetStepSize = myChart.config.options.scales.yAxes[0].ticks.stepSize;
 
     function toggleScale() {
 
 
         if (myChart.config.options.scales.yAxes[0].ticks.max === resetScale) {
-            var highest = myChart.data.datasets[0].data.reduce(function (a, b) {
-                return Math.max(a, b);
-            });
-            myChart.config.options.scales.yAxes[0].ticks.max = Math.ceil(highest)
+            myChart.config.options.scales.yAxes[0].ticks.max = undefined;
+            myChart.config.options.scales.yAxes[0].ticks.stepSize = undefined;
         } else {
             myChart.config.options.scales.yAxes[0].ticks.max = resetScale;
+            myChart.config.options.scales.yAxes[0].ticks.stepSize = resetStepSize;
         }
-
 
         myChart.update();
 

@@ -19,7 +19,7 @@ router.get('/:location', Locations.show);
 router.get('/:location/:folder', Folders.show);
 
 
-router.get('/admin/delete/scan/:scanID', Admin.deleteScan);
+// router.get('/admin/delete/scan/:scanID', Admin.deleteScan);
 
 // router.get('/reads/:folderName', Reads.showFolder);
 // router.get('/scratch/:folderName', Scratch.showFolder);
