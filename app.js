@@ -4,11 +4,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const lessMiddleware = require('less-middleware');
-const index = require('./routes/index');
-const schedule = require('node-schedule');
 const app = express();
-const scanner = require('./lib/scanner');
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,7 +18,11 @@ app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+app.use('/', require('./routes/index'));
+app.use('/', require('./routes/admin'));
+app.use('/', require('./routes/locations'));
+app.use('/', require('./routes/folders'));
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -40,11 +40,6 @@ app.use(function (err, req, res, next) {
     // render the error page
     res.status(err.status || 500);
     res.render('error');
-});
-
-//CRON
-const checkerJob = schedule.scheduleJob('0 0 * * *', function () {
-    scanner.all();
 });
 
 module.exports = app;
