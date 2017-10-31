@@ -1,6 +1,9 @@
 const Location = require('../models/location');
 const r = require('../lib/thinky').r;
 const compare = require('../lib/compare');
+const filesize = require('../lib/filesize');
+const moment = require('moment');
+const Chart = require('chart.js');
 module.exports = {
 
     show: function (req, res, next) {
@@ -26,7 +29,11 @@ module.exports = {
 
 
                     const scanWithComparison = compare.locations(instances[0], instances[1]);
-                    return res.render('locations/show', {location: scanWithComparison, instances: fakeInstances});
+                    return res.render('locations/show', {
+                        location: scanWithComparison,
+                        instances: fakeInstances,
+                        filesize
+                    });
                 } else {
                     return next();
                 }

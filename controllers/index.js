@@ -5,12 +5,12 @@ const Scan = require('../models/scan');
 
 const r = require('../lib/thinky').r;
 const compare = require('../lib/compare');
-
+const filesize = require('../lib/filesize');
 
 module.exports = {
     index: function (req, res, next) {
 
-        if(req.query.scanID){
+        if (req.query.scanID) {
             Scan.get(req.query.scanID)
         }
 
@@ -19,7 +19,7 @@ module.exports = {
             .run()
             .then(scans => {
                 const scanWithComparison = compare.scan(scans[0], scans[1]);
-                return res.render('index', {scan: scanWithComparison, instances: scans});
+                return res.render('index', {scan: scanWithComparison, instances: scans, filesize});
             });
     }
 };
