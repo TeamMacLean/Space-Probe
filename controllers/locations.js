@@ -2,8 +2,6 @@ const Location = require('../models/location');
 const r = require('../lib/thinky').r;
 const compare = require('../lib/compare');
 const filesize = require('../lib/filesize');
-const moment = require('moment');
-const Chart = require('chart.js');
 module.exports = {
 
     show: function (req, res, next) {
