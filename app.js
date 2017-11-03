@@ -7,6 +7,7 @@ const lessMiddleware = require('less-middleware');
 const app = express();
 const schedule = require('node-schedule');
 const scanner = require('./lib/scanner_with_save');
+const config = require('./config');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -44,7 +45,7 @@ app.use(function (err, req, res, next) {
     res.render('error');
 });
 
-const j = schedule.scheduleJob('0 0 * * *', function () {
+const j = schedule.scheduleJob(config.cron, function () {
     console.log('Scan Started!');
     scanner.scan();
 });
