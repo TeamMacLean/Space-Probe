@@ -3,25 +3,25 @@ module.exports = {
     locations: [
         {
             name: 'Reads',
-            path: '/Users/pagem/Documents/workspace/space_probe',
+            paths: ['/Users/pagem/Documents/workspace/space_probe'],
             checkXFiles: false,
             innerFolders: true
         },
         {
             name: 'Scratch',
-            path: '/Users/pagem/Documents/workspace/space_probe',
+            paths: ['/Users/pagem/Documents/workspace/space_probe'],
             checkXFiles: true,
             innerFolders: true
         },
         {
             name: 'Homes',
-            path: '/Users/pagem/Documents/workspace/space_probe',
+            paths: ['/Users/pagem/Documents/workspace/space_probe'],
             checkXFiles: true,
             innerFolders: true
         },
         {
             name: 'top level test',
-            path: '/Users/pagem/Documents/workspace/space_probe',
+            paths: ['/Users/pagem/Documents/workspace/space_probe'],
             checkXFiles: true,
             innerFolders: false
         }

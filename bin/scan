@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-const scanner = require('../lib/scanner');
+const path = require('path');
+const scanner = require(path.join(__dirname, '../lib/scanner'));
 const fs = require('fs');
 
 scanner.scan()
@@ -8,13 +9,13 @@ scanner.scan()
         const ts = Math.round((new Date()).getTime());
 
         const toWrite = {
-            scan:{
-                date:ts
+            scan: {
+                date: ts
             },
-            locations:locations
+            locations: locations
         };
 
-        const outputPath = `./scan-${ts}.json`;
+        const outputPath = path.join(__dirname, '../', `./scan-${ts}.json`);
         fs.writeFile(outputPath, JSON.stringify(toWrite, null, 2), function (err) {
             if (err) {
                 console.log('failed to save scan results', err);

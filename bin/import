@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
+const path = require('path');
 const fs = require('fs');
-const Scan = require('../models/scan');
-const Location = require('../models/location');
-const Folder = require('../models/folder');
+const Scan = require(path.join(__dirname, '../models/scan'));
+const Location = require(path.join(__dirname, '../models/location'));
+const Folder = require(path.join(__dirname, '../models/folder'));
 const moment = require('moment');
 
 if (process.argv.length < 3) {
