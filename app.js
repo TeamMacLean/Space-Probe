@@ -5,8 +5,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const lessMiddleware = require('less-middleware');
 const app = express();
-const schedule = require('node-schedule');
-const scanner = require('./lib/scanner_with_save');
+// const schedule = require('node-schedule');
+// const scanner = require('./lib/scanner_with_save');
 const config = require('./config');
 
 // view engine setup
@@ -45,9 +45,9 @@ app.use(function (err, req, res, next) {
     res.render('error');
 });
 
-const j = schedule.scheduleJob(config.cron, function () {
-    console.log('Scan Started!');
-    scanner.scan();
-});
+// const j = schedule.scheduleJob(config.cron, function () {
+//     console.log('Scan Started!');
+//     scanner.scan();
+// });
 
 module.exports = app;
