@@ -1,5 +1,6 @@
 module.exports = {
     port: 3000,
+    cron: '0 0 * * *',
     locations: [
         {
             name: 'Reads',

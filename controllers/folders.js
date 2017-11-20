@@ -14,6 +14,12 @@ module.exports = {
             }))
             .limit(10) //ONLY SHOW LAST 10 SCANS!!
             .then(instances => {
+
+
+                if (!instances || instances.length < 1) {
+                    return next();
+                }
+
                 return res.render('folders/show', {instances, filesize});
             })
             .catch(err => {
