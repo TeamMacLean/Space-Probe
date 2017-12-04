@@ -19,9 +19,10 @@ scanner.scan()
         fs.writeFile(outputPath, JSON.stringify(toWrite, null, 2), function (err) {
             if (err) {
                 console.log('failed to save scan results', err);
-                // process.exit();
+                process.exit();
             } else {
                 console.log("scan results saved to", outputPath);
+                process.exit();
             }
         });
     })
